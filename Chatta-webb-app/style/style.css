@@ -1,0 +1,36 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.header{
+    height: 90px;
+    background-color: orange;
+}
+
+.divCenter{
+    display: flex;
+    justify-content: center;
+
+}
+
+.h1{
+    margin-top: 30px;
+    color: blue;
+}
+
+.navbar{
+    background-color: orange;
+    display: flex;
+    justify-content: end;
+}
+
+.newChatt{
+    background-color: blue;
+    color: white;
+    margin-right: 20px;
+    padding: 10px;
+    border-style: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
