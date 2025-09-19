@@ -15,8 +15,12 @@
     overflow-x: hidden;
 }
 
-.header{
+.fixedTop{
+    position: fixed;
+    z-index: 1100;
+}
 
+.header{
     background-color: var(--PrimaryBackground);
     width: 100vw;
     left: 0;
@@ -71,6 +75,7 @@
     border-radius: 1rem;
     border: none;
     margin-top: 2rem;
+    margin-bottom: 2rem;
     padding-top: 0.5rem ;
     width: 40rem;
     height: 3rem;
@@ -88,12 +93,19 @@
 
 .bi-box-arrow-right{
     color: var(--LightText);
-    margin-bottom: 2rem;
     margin-left: 1rem;
+    margin-top:2.5rem;
+    margin-bottom: 2rem;
 }
 
 .bi-box-arrow-right:hover{
     color: #C9D4D3;
+
+}
+
+.conversationDiv{
+    margin-bottom: 30px;
+    margin-top: 120px;
 }
 
 .sentMessageDiv{
@@ -120,4 +132,20 @@
 .messageTimer{
     margin-left: 10px;
     font-size: 0.75rem;
+}
+
+.bi-chat-dots{
+    margin-left: 10px;
+    color: var(--PrimaryBackground );
+}
+
+.noMessage{
+    margin-left: 10px;
+    margin-top: 10px;
+    overflow-y: hidden;
+}
+
+.formDiv{
+    display: flex;
+    justify-content: center;
 }

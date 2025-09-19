@@ -1,22 +1,12 @@
 
-import { useState } from "react";
 import NavbarModal  from "./NavbarModal";
 import "../../style/style.css"
 
-export default function Navbar(){
-
-    const [modalVisebility, setModalVisibility] = useState(false)
-
-    function newChat() {
-        setModalVisibility(true);
-        console.log("Hej");
-
-        console.log(modalVisebility)
-    }
+export default function Navbar({clearMessage}){
 
     return(
         <>
-            <div className="row">
+            <div className="row fixedTop">
                 <div className="col">
                     <header className="header">
                         <div className="divCenter">
@@ -24,9 +14,9 @@ export default function Navbar(){
                         </div>
                     </header>
                     <nav className="navbar">
-                        <button className="newChatt" onClick={newChat} type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">New chat</button>
+                        <button className="newChatt" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">New chat</button>
                     </nav>
-                    {modalVisebility && <NavbarModal/>}
+                    <NavbarModal clearMessage={clearMessage}/>
                 </div>
             </div>
         </>

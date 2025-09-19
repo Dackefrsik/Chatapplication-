@@ -1,10 +1,13 @@
 
 
-export default function NavbarModal(){
+export default function NavbarModal({clearMessage}){
 
+    function clearChat(){
+        clearMessage();
+    }
 
     return(
-        <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                 <div className="modal-header">
@@ -17,7 +20,7 @@ export default function NavbarModal(){
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-success" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-danger">Leave chat</button>
+                    <button type="button" className="btn btn-danger" onClick={clearChat} data-bs-dismiss="modal">Leave chat</button>
                 </div>
                 </div>
             </div>
