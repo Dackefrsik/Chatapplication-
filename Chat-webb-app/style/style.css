@@ -1,0 +1,123 @@
+:root{
+    /* CSS HEX */
+    --PrimaryBackground: #0a1c14ff;
+    --SecundaryBackground: #243843ff;
+    --PrimaryAccent: #3AAE8C;
+    --SecundaryAccent: #b287ffff;
+    --Highlight: #ffd433ff;
+    --LightText: #e8f1f0ff;
+    --DarkText: #5c664dff;
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}
+
+.header{
+
+    background-color: var(--PrimaryBackground);
+    width: 100vw;
+    left: 0;
+    overflow-y: hidden;
+}
+
+.divCenter{
+    display: flex;
+    justify-content: center;
+
+}
+
+.h1{
+    margin-top: 10px;
+    color: var(--LightText);
+    overflow-y: hidden;
+}
+
+.navbar{
+    background-color: var(--PrimaryBackground);
+    display: flex;
+    justify-content: end;
+}
+
+.newChatt{
+    background-color: var(--LightText);
+    color: var(--DarkText);
+    margin-right: 20px;
+    padding: 5px;
+    border-style: none;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.newChatt:hover{
+    background-color: #C9D4D3;
+    transform: scale(1.05);
+}
+
+.divInput{
+    background-color: var(--SecundaryBackground);
+    position: fixed;
+    bottom: 0; 
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    left: 0;
+}
+
+.textInput{
+    border-radius: 1rem;
+    border: none;
+    margin-top: 2rem;
+    padding-top: 0.5rem ;
+    width: 40rem;
+    height: 3rem;
+    resize: none;
+    padding-left: 1rem;
+}
+
+.textInput::-webkit-scrollbar {
+    display: none;
+}
+
+.textInput:focus{
+    outline: none;
+}
+
+.bi-box-arrow-right{
+    color: var(--LightText);
+    margin-bottom: 2rem;
+    margin-left: 1rem;
+}
+
+.bi-box-arrow-right:hover{
+    color: #C9D4D3;
+}
+
+.sentMessageDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0px;
+}
+
+.sentMessage{
+    display: inline-block;
+    align-self: flex-start;
+    margin-left: 10px;
+    margin-top:10px;
+    background-color: var(--Highlight);
+    border-radius: 1rem;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 0;
+}
+
+.messageTimer{
+    margin-left: 10px;
+    font-size: 0.75rem;
+}
