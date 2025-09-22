@@ -34,7 +34,19 @@ io.on("connection", (socket) => {
     
     connectedClients ++;
     console.log("Klient anslöt", socket.id);
+
+    socket.on("chat message", (msg) =>{
+
+       //msg.senderId = socket.id; //Adderar en ytterligare parameter för att kunna särskilja dem åt och lägga på var sin sida av skärmen
+        
+        socket.broadcast.emit("chat message", msg); //Skickar till alla utom avsändaren
+    } )
+
+
 });
+
+
+
 
 //Lysnar på servern
 server.listen(3000, () => {

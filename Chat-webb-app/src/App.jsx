@@ -8,21 +8,32 @@ import {io} from "socket.io-client";
 
 function App() {
 
-  const[messages, addMessage] = useState([]);
+  const[myMessages, addMessage] = useState([]);
+
+  const[recivedMessages, addRecivedMessages] = useState([]);
 
   const[currentText, setCurrentText] = useState("");
 
   const[socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:3000");
 
+    //Ansluter till servern på porten 3000
+    const newSocket = io("http://localhost:3000");
     setSocket(newSocket);
 
+    //Loggar ut ett medelande vid anslutning
     newSocket.on("connect", () => {
-    console.log("Connected with id: " + newSocket.id)
-  })
+      console.log("Connected with id: " + newSocket.id)
+    })
 
+  //Socket.on tar emot ett medelande från servern 
+  newSocket.on("chat message", (msg) => {
+    
+    addRecivedMessages(prev => [...prev, msg]);
+  });
+
+  //Säkllerställer att bara en enhet ansluter när klienten anluter
   return () => {
     newSocket.disconnect();
     console.log("Disconnected socket");
@@ -37,15 +48,27 @@ function App() {
       const date = new Date();
       const houre = date.getHours();
       const min = date.getMinutes();
+      let time = "";
 
-      const time = houre + ":" + min;
+      if(min > 9){
+        time = houre + ":0" + min;
+      }
+      else{
+        time = houre + ":0" + min;
 
-    addMessage(prev => [...prev, {text : inputMessage, time}]);
+      }
+
+      addMessage(prev => [...prev, {text : inputMessage, time, socketID : socket.id}]);
+
+      const messageObject = { text: inputMessage, time, socketID : socket.id};
+
+      //Socket.emit skickar medelanden 
+      socket.emit("chat message", messageObject);
   }
 
   function clearMessage(){
     addMessage([]);
-    console.log(messages.length)
+    console.log(myMessages.length)
   }
   
   function returnCurrentText(inputCurrentText){
@@ -56,7 +79,8 @@ function App() {
     <div >
         <Navbar clearMessage={clearMessage}/>
 
-        <Conversation messages={messages} currentText={currentText}/>
+        //Socket?.id gör att det kan skicka ett id på socket som är undefined utan att programmet krachar
+        <Conversation messages={myMessages} currentText={currentText} recivedMessages={recivedMessages} mySocketId={socket?.id}/>
       
         <TextInput returnMessage={returnMessage} returnCurrentText={returnCurrentText}/>
       

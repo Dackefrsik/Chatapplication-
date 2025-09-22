@@ -1,11 +1,30 @@
-export default function Converstaion({messages, currentText}){
+export default function Converstaion({messages, currentText, recivedMessages, mySocketId}){
 
+    //Kombinerar de två vektorerna med medelanden
+    const allMessages = [...messages, ...recivedMessages];
+
+    //Sorterar de på tid
+    allMessages.sort((a , b ) => {
+        console.log( allMessages)
+        return a.time.localeCompare(b.time);
+    })
 
     return (
      
             <div className="conversationDiv">
-                {Array.isArray(messages) && messages.length > 0 ? (
-                    messages.map(( m, i) => <div className="sentMessageDiv"><p key={i} className="sentMessage">{m.text}</p> <p className="messageTimer">{m.time}</p></div>) 
+                {Array.isArray(allMessages) && allMessages.length > 0 ? (
+                    allMessages.map(( m, i) => {
+                    
+                        //Skiftar klass beroende på vem som skickat medelandet
+                        //Behöver en extra return fär att lopen (map) måste returnera något
+                        return(   
+                        <div className={m.socketID === mySocketId ? "sentMessageDiv" : "recivedMessageDiv"}>
+                            <p key={i} className={m.socketID === mySocketId ? "sentMessage" : "recivedMessage"}>{m.text}</p> 
+                            <p className={m.socketID == mySocketId ? "messageTimer" : "messageTimerRight"}>{m.time}</p>
+                        </div>
+                    )}
+                    
+                )
                 ) : ( <h5 className="noMessage">Finns inga medelande...</h5>
                 )}
 
