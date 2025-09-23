@@ -33,6 +33,13 @@ function App() {
     addRecivedMessages(prev => [...prev, msg]);
   });
 
+  //Lämmnar chatten när den andra väljer att lämna chatten
+  newSocket.on("leaveChat", () =>{
+    console.log("Leaving chat");
+    newSocket.disconnect();
+    clearMessage();
+  })
+
   //Säkllerställer att bara en enhet ansluter när klienten anluter
   return () => {
     newSocket.disconnect();
@@ -50,11 +57,11 @@ function App() {
       const min = date.getMinutes();
       let time = "";
 
-      if(min > 9){
+      if(min <= 9){
         time = houre + ":0" + min;
       }
       else{
-        time = houre + ":0" + min;
+        time = houre + min;
 
       }
 
@@ -68,7 +75,13 @@ function App() {
 
   function clearMessage(){
     addMessage([]);
-    console.log(myMessages.length)
+    addRecivedMessages([]);
+
+    if(socket?.connected){
+      console.log("leaving chat...");
+      socket.emit("leaveChat"); //Lämnar chatten
+    }
+ 
   }
   
   function returnCurrentText(inputCurrentText){

@@ -42,6 +42,14 @@ io.on("connection", (socket) => {
         socket.broadcast.emit("chat message", msg); //Skickar till alla utom avsändaren
     } )
 
+    socket.on("leaveChat", () => {
+        console.log("Socket disconnected: ", socket.id);
+        connectedClients --;
+        socket.broadcast.emit("leaveChat");
+        socket.disconnect();   
+
+    })
+
 
 });
 
