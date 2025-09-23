@@ -29,33 +29,35 @@ function App() {
       console.log("Connected with id: " + newSocket.id)
     })
 
-  //Socket.on tar emot ett medelande från servern 
-  newSocket.on("chat message", (msg) => {
-    
-    addRecivedMessages(prev => [...prev, msg]);
-  });
+    //Socket.on tar emot ett medelande från servern 
+    newSocket.on("chat message", (msg) => {
+      
+      addRecivedMessages(prev => [...prev, msg]);
+    });
 
-  newSocket.on("currentText", () => {
-    console.log("Writing...");
-    currentlyWriting(true);
-  });
+    //Tar emot medelande för currentText
+    newSocket.on("currentText", () => {
+      console.log("Writing...");
+      currentlyWriting(true);
+    });
 
-  newSocket.on("noCurrentText", () => {
-    currentlyWriting(false);
-  })
+    //Tar emot medelande för noCurrentText
+    newSocket.on("noCurrentText", () => {
+      currentlyWriting(false);
+    })
 
-  //Lämmnar chatten när den andra väljer att lämna chatten
-  newSocket.on("leaveChat", () =>{
-    console.log("Leaving chat");
-    newSocket.disconnect();
-    clearMessage();
-  })
+    //Lämmnar chatten när den andra väljer att lämna chatten
+    newSocket.on("leaveChat", () =>{
+      console.log("Leaving chat");
+      newSocket.disconnect();
+      clearMessage();
+    })
 
-  //Säkllerställer att bara en enhet ansluter när klienten anluter
-  return () => {
-    newSocket.disconnect();
-    console.log("Disconnected socket");
-  }
+    //Säkllerställer att bara en enhet ansluter när klienten anluter
+    return () => {
+      newSocket.disconnect();
+      console.log("Disconnected socket");
+    }
 
   }, []);
 
