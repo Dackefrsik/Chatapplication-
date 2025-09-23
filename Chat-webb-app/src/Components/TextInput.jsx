@@ -10,8 +10,6 @@ export default function TextInput({returnMessage, returnCurrentText}){
         returnMessage(textInput.current.value)
         textInput.current.value = "";
         returnCurrentText("")
-
-        
     }
 
     function writing(){

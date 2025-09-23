@@ -35,21 +35,31 @@ io.on("connection", (socket) => {
     connectedClients ++;
     console.log("Klient anslöt", socket.id);
 
+    //Skickar ett chatmedelande
     socket.on("chat message", (msg) =>{
-
-       //msg.senderId = socket.id; //Adderar en ytterligare parameter för att kunna särskilja dem åt och lägga på var sin sida av skärmen
         
         socket.broadcast.emit("chat message", msg); //Skickar till alla utom avsändaren
     } )
 
+    //Skickar medelande om att lämna chatten
     socket.on("leaveChat", () => {
         console.log("Socket disconnected: ", socket.id);
         connectedClients --;
         socket.broadcast.emit("leaveChat");
         socket.disconnect();   
+    });
 
+    //Skickar medelande om att det finns en nuvarande text i inputrutan 
+    socket.on("currentText", () => {
+
+        console.log("Writing...");
+        socket.broadcast.emit("currentText");
+    });
+
+    //Skickar medelande om att det inte finns någon nuvarande text i rutan
+    socket.on("noCurrentText", () => {
+        socket.broadcast.emit("noCurrentText");
     })
-
 
 });
 

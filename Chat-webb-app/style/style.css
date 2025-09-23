@@ -2,8 +2,6 @@
     /* CSS HEX */
     --PrimaryBackground: #0a1c14ff;
     --SecundaryBackground: #243843ff;
-    --PrimaryAccent: #3AAE8C;
-    --SecundaryAccent: #b287ffff;
     --Highlight: #ffd433ff;
     --LightText: #e8f1f0ff;
     --DarkText: #5c664dff;
@@ -176,4 +174,9 @@
 .formDiv{
     display: flex;
     justify-content: center;
+}
+
+.typingIconRight{
+    display: flex;
+    justify-content: end;
 }

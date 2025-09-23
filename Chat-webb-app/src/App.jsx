@@ -14,6 +14,8 @@ function App() {
 
   const[currentText, setCurrentText] = useState("");
 
+  const[writing, currentlyWriting] = useState(false);
+
   const[socket, setSocket] = useState(null);
 
   useEffect(() => {
@@ -32,6 +34,15 @@ function App() {
     
     addRecivedMessages(prev => [...prev, msg]);
   });
+
+  newSocket.on("currentText", () => {
+    console.log("Writing...");
+    currentlyWriting(true);
+  });
+
+  newSocket.on("noCurrentText", () => {
+    currentlyWriting(false);
+  })
 
   //Lämmnar chatten när den andra väljer att lämna chatten
   newSocket.on("leaveChat", () =>{
@@ -85,7 +96,15 @@ function App() {
   }
   
   function returnCurrentText(inputCurrentText){
-    setCurrentText(inputCurrentText);
+    if(inputCurrentText.length > 0){
+      setCurrentText(inputCurrentText);
+      socket.emit("currentText");
+    }
+    else{
+      setCurrentText("");
+      socket.emit("noCurrentText");
+    }
+
   }
 
   return (
@@ -93,7 +112,7 @@ function App() {
         <Navbar clearMessage={clearMessage}/>
 
         //Socket?.id gör att det kan skicka ett id på socket som är undefined utan att programmet krachar
-        <Conversation messages={myMessages} currentText={currentText} recivedMessages={recivedMessages} mySocketId={socket?.id}/>
+        <Conversation messages={myMessages} currentText={currentText} recivedMessages={recivedMessages} mySocketId={socket?.id} writing={writing}/>
       
         <TextInput returnMessage={returnMessage} returnCurrentText={returnCurrentText}/>
       
