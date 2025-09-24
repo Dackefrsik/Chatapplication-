@@ -1,0 +1,51 @@
+@startuml
+' Paketstruktur för tydlighet
+
+package "local" {
+
+  class App {
+    - myMessage: Message[]
+    - recivedMessages: Message[]
+    - currentText : string
+    - writing : boolean 
+    - socket: Socket
+    + returnMessage(inputMessage: string): void
+    + clearMessage(): void
+    + returnCurrentText(inputCurrentText: string): void
+    + render(): JSX
+  }
+
+  class Navbar {
+    + clearMessage(): void
+    + render(): JSX
+  }
+
+    class Conversation {
+        + messages: Message[]
+        + currentText: string
+        + recivedMessages:  Message[]
+        + mySocketId: string
+        + writing: boolean
+        + render() : JSX
+    }
+
+    class TextInput {
+        + returnMessage(msg: string): void
+        + returnCurrentText(text: string): void
+        + render(): JSX
+    }
+
+    class NavbarModal{
+        + clearChat(): vid
+        + render(): JSX 
+    }
+
+}
+
+' Relationer
+
+App --> Navbar : render
+App --> Conversation : render
+App --> TextInput : render
+Navbar --> NavbarModal : render
+@enduml

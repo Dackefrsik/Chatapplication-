@@ -17,13 +17,15 @@ Chatapplication created in React.js with backend in Node.js
 
 ```
 
+<h5>Class diagram</h5>
+
+<img src="/Chat-webb-app/UML/classDiagram.png">
+
 <h3>Start application</h3>
 
 <h5>Server</h3>
 
 Öppna terminalen i mappen server och kör ` node server.js `  
-
-
 
 <h5>Klienten</h5>
 
