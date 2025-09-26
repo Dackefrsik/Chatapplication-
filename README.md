@@ -35,4 +35,4 @@ Chatapplication created in React.js with backend in Node.js
 
 <p>socket.on lyssnar på inkommande events frå servern eller medelanden via servern till andra klienten</p>
 <p>socket.emit används för att skicka events från en klient till server eller från en server till en specifik klient</p>
-<p>io.emit skickar händelser till alla klienter</p>
+<p>io.emit skickar händelser med data till alla klienter</p>
