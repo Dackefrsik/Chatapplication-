@@ -25,14 +25,23 @@ let connectedClients = 0;
 //Sköter anslutningar till servern 
 io.on("connection", (socket) => {
 
+    connectedClients ++;
+
     //Kontrolerar antalet anslutna klienter
-    if(connectedClients >= clientMax){
+    if(connectedClients > clientMax){
         console.log("Maximum clients reached. Denied connection: ", socket.id);
+        //Skicakar medelande för att kunna skriva ut medelande om max antal anslutna
+        socket.emit("dissconnected", false);
         socket.disconnect(true);
         return;
     }
+    else if(connectedClients <= clientMax){
+        console.log("Waiting for other user...");
+        console.log("antal anslutna: ", connectedClients)
+        io.emit("Waiting", connectedClients); //Skickar antal anslutna till alla enheter för att kunna uppdatera textarean
+    }
     
-    connectedClients ++;
+   
     console.log("Klient anslöt", socket.id);
 
     //Skickar ett chatmedelande
@@ -45,7 +54,7 @@ io.on("connection", (socket) => {
     socket.on("leaveChat", () => {
         console.log("Socket disconnected: ", socket.id);
         connectedClients --;
-        socket.broadcast.emit("leaveChat");
+         socket.broadcast.emit("leaveChat");
         socket.disconnect();   
     });
 
@@ -62,9 +71,6 @@ io.on("connection", (socket) => {
     })
 
 });
-
-
-
 
 //Lysnar på servern
 server.listen(3000, () => {

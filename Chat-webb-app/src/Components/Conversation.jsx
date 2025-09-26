@@ -25,7 +25,7 @@ export default function Converstaion({messages, recivedMessages, mySocketId, wri
                     )}
                     
                 )
-                ) : ( <h5 className="noMessage">Finns inga medelande...</h5>
+                ) : ( <h5 className="noMessage">"Waiting for second user..."</h5>
                 )}
 
                 {writing && 

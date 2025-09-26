@@ -30,3 +30,9 @@ Chatapplication created in React.js with backend in Node.js
 <h5>Klienten</h5>
 
 Öppna terminalen i mappen Chat-webb-app och kör ` npm run dev `
+
+<h4>emit, io & on</h4>
+
+<p>socket.on lyssnar på inkommande events frå servern eller medelanden via servern till andra klienten</p>
+<p>socket.emit används för att skicka events från en klient till server eller från en server till en specifik klient</p>
+<p>io.emit skickar händelser till alla klienter</p>
