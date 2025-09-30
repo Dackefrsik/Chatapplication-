@@ -98,7 +98,10 @@
 
 .bi-box-arrow-right:hover{
     color: #C9D4D3;
+}
 
+.bi-chat-right-dots{
+    margin-right: 10px;
 }
 
 .conversationDiv{

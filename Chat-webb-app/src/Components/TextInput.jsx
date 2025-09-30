@@ -8,7 +8,9 @@ export default function TextInput({returnMessage, returnCurrentText, antalAnslut
 
     function write(){
         console.log("Returnvalue: ", textInput.current.value)
-        returnMessage(textInput.current.value)
+        if(textInput.current.value !== ""){
+            returnMessage(textInput.current.value)
+        }
         textInput.current.value = "";
         returnCurrentText("")
     }

@@ -25,8 +25,7 @@ export default function Converstaion({messages, recivedMessages, mySocketId, wri
                     )}
                     
                 )
-                ) : ( <h5 className="noMessage">"Waiting for second user..."</h5>
-                )}
+                ) : (null)}
 
                 {writing && 
                 <div className="typingIconRight">

@@ -24,6 +24,8 @@ function App() {
 
   const[antalAnslutna, setAntalAnslutna] = useState(0); //useState för antal anslutana enheter
 
+  const[infoText, setInfoText] = useState("No connection, to manny users");
+
   useEffect(() => {
 
     //Ansluter till servern på porten 3000
@@ -53,8 +55,9 @@ function App() {
     })
 
     //Lämmnar chatten när den andra väljer att lämna chatten
-    newSocket.on("leaveChat", () =>{
-      console.log("Other user left chat");
+    newSocket.on("leaveChat", (connectedClients) =>{
+      setInfoText("User left chat, waiting for new user...");
+      setAntalAnslutna(connectedClients);
       clearMessage();
     })
 
@@ -64,6 +67,7 @@ function App() {
 
     newSocket.on("Waiting", (connectedClients) => {
       console.log("Antal anslutna klienter: ", connectedClients);
+      setInfoText("Waiting for second user...");
       setAntalAnslutna(connectedClients);
     });
 
@@ -107,6 +111,7 @@ function App() {
     if(socket?.connected){
       console.log("leaving chat...");
       socket.emit("leaveChat"); //Lämnar chatten
+      
     }
  
   }
@@ -117,7 +122,7 @@ function App() {
       socket.emit("currentText");
     }
     else{
-      setCurrentText("");
+      setCurrentText();
       socket.emit("noCurrentText");
     }
 
@@ -128,9 +133,9 @@ function App() {
         <Navbar clearMessage={clearMessage}/>
 
         //Socket?.id gör att det kan skicka ett id på socket som är undefined utan att programmet krachar
-        {dissconnected ? (<Conversation messages={myMessages} currentText={currentText} recivedMessages={recivedMessages} mySocketId={socket?.id} writing={writing} />): (<NoConnection />)}
+        {dissconnected && antalAnslutna > 1 ? (<Conversation messages={myMessages} currentText={currentText} recivedMessages={recivedMessages} mySocketId={socket?.id} writing={writing} antalAnslutna={antalAnslutna} />): (<NoConnection infoText={infoText}/>)}
       
-        <TextInput returnMessage={returnMessage} returnCurrentText={returnCurrentText} antalAnslutna={antalAnslutna}/>
+        <TextInput returnMessage={returnMessage} returnCurrentText={returnCurrentText} antalAnslutna={antalAnslutna} currentText={currentText} />
       
     </div>
   )

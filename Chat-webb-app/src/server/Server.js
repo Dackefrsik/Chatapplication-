@@ -40,13 +40,11 @@ io.on("connection", (socket) => {
         console.log("antal anslutna: ", connectedClients)
         io.emit("Waiting", connectedClients); //Skickar antal anslutna till alla enheter för att kunna uppdatera textarean
     }
-    
    
     console.log("Klient anslöt", socket.id);
 
-    //Skickar ett chatmedelande
+    //Tar emot ett chatmedelande
     socket.on("chat message", (msg) =>{
-        
         socket.broadcast.emit("chat message", msg); //Skickar till alla utom avsändaren
     } )
 
@@ -54,13 +52,14 @@ io.on("connection", (socket) => {
     socket.on("leaveChat", () => {
         console.log("Socket disconnected: ", socket.id);
         connectedClients --;
-         socket.broadcast.emit("leaveChat");
-        socket.disconnect();   
+        socket.broadcast.emit("leaveChat", connectedClients);  
+        io.emit("waiting", connectedClients);
+        socket.disconnect(); 
+
     });
 
     //Skickar medelande om att det finns en nuvarande text i inputrutan 
     socket.on("currentText", () => {
-
         console.log("Writing...");
         socket.broadcast.emit("currentText");
     });
@@ -68,6 +67,17 @@ io.on("connection", (socket) => {
     //Skickar medelande om att det inte finns någon nuvarande text i rutan
     socket.on("noCurrentText", () => {
         socket.broadcast.emit("noCurrentText");
+    })
+
+    //När en användare tappar anslutning eller stänger ner fliken
+    socket.on("diconnect", () => {
+        console.log("Socket Disconnected: ",  socket.id);
+        if(connectedClients > 0){
+            connectedClients--;
+        }
+        io.emit("leaveChat", connectedClients);
+        io.emit("leaveChat", connectedClients);
+
     })
 
 });
